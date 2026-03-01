@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role-Based Decision Simulation Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 Role-Based Decision Simulation Platform</h1>
+            <p>Test your decision-making skills in real-world professional scenarios</p>
+        </header>
+
+        <!-- Login Section -->
+        <div id="authSection" class="auth-section">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <input type="email" id="email" placeholder="Email Address" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+                <button type="button" id="showRegister">Create New Account</button>
+            </form>
+        </div>
+
+        <!-- Register Section (Hidden by default) -->
+        <div id="registerSection" class="auth-section" style="display: none;">
+            <h2>Create New Account</h2>
+            <form id="registerForm">
+                <input type="text" id="regName" placeholder="Full Name" required>
+                <input type="email" id="regEmail" placeholder="Email Address" required>
+                <input type="password" id="regPassword" placeholder="Password" required>
+                
+                <select id="regRole" required>
+                    <option value="">-- Select Your Professional Role --</option>
+                    
+                    <optgroup label="👔 Management & Business">
+                        <option value="Project Manager">Project Manager</option>
+                        <option value="Operations Manager">Operations Manager</option>
+                        <option value="Product Manager">Product Manager</option>
+                        <option value="Business Analyst">Business Analyst</option>
+                        <option value="HR Manager">HR Manager</option>
+                        <option value="Marketing Manager">Marketing Manager</option>
+                        <option value="Financial Manager">Financial Manager</option>
+                        <option value="Startup Founder">Startup Founder</option>
+                    </optgroup>
+                    
+                    <optgroup label="💻 Engineering & Technology">
+                        <option value="Software Engineer">Software Engineer</option>
+                        <option value="Systems Engineer">Systems Engineer</option>
+                        <option value="Network Admin">Network Administrator</option>
+                        <option value="Data Engineer">Data Engineer</option>
+                        <option value="Cybersecurity Analyst">Cybersecurity Analyst</option>
+                        <option value="DevOps Engineer">DevOps Engineer</option>
+                        <option value="QA Engineer">QA Engineer</option>
+                        <option value="IT Project Lead">IT Project Lead</option>
+                    </optgroup>
+                    
+                    <optgroup label="🏥 Healthcare & Medical">
+                        <option value="Hospital Administrator">Hospital Administrator</option>
+                        <option value="Medical Officer">Medical Officer</option>
+                        <option value="Nursing Supervisor">Nursing Supervisor</option>
+                        <option value="Emergency Coordinator">Emergency Response Coordinator</option>
+                        <option value="Healthcare Ops Manager">Healthcare Operations Manager</option>
+                        <option value="Clinical Analyst">Clinical Decision Analyst</option>
+                        <option value="Public Health Officer">Public Health Officer</option>
+                    </optgroup>
+                    
+                    <optgroup label="📚 Education & Training">
+                        <option value="Academic Coordinator">Academic Coordinator</option>
+                        <option value="School Administrator">School Administrator</option>
+                        <option value="Curriculum Designer">Curriculum Designer</option>
+                        <option value="Examination Controller">Examination Controller</option>
+                        <option value="Education Policy Analyst">Education Policy Analyst</option>
+                        <option value="Training Manager">Training Program Manager</option>
+                    </optgroup>
+                </select>
+                
+                <button type="submit">Register</button>
+                <button type="button" id="backToLogin">Back to Login</button>
+            </form>
+        </div>
+
+        <!-- Main Application Section (Hidden until login) -->
+        <div id="appSection" style="display: none;">
+            <div class="user-header">
+                <div>
+                    <h2>Welcome, <span id="userName"></span>!</h2>
+                    <p>Role: <span id="userRole"></span></p>
+                </div>
+                <button id="logoutBtn">Logout</button>
+            </div>
+
+            <!-- Scenarios Section -->
+            <div class="scenarios-section">
+                <h3>📋 Your Scenarios</h3>
+                <div id="scenariosList" class="scenarios-grid">
+                    <!-- Scenarios will be loaded here by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Decision Modal -->
+    <div id="decisionModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalDescription" style="margin: 15px 0; line-height: 1.6;"></p>
+            
+            <div class="metrics-bar">
+                <h4>📊 Current Metrics:</h4>
+                <div class="metrics">
+                    <div class="metric">💰 Cost: <span id="currentCost">100</span></div>
+                    <div class="metric">⏰ Time: <span id="currentTime">100</span></div>
+                    <div class="metric">⭐ Quality: <span id="currentQuality">100</span></div>
+                    <div class="metric">😊 Morale: <span id="currentMorale">100</span></div>
+                    <div class="metric">👍 Satisfaction: <span id="currentSatisfaction">100</span></div>
+                </div>
+            </div>
+
+            <h4>🤔 Choose Your Decision:</h4>
+            <div id="decisionsList" class="decisions-list">
+                <!-- Decisions will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Modal -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Decision Results</h2>
+            <div id="resultContent"></div>
+            <button id="closeResult">Close</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
