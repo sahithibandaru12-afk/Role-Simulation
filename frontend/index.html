@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DecisionFlow | Role-Based Decision Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="gradient-bg">
+        <div class="gradient-1"></div>
+        <div class="gradient-2"></div>
+        <div class="gradient-3"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="app-container">
+        <!-- Navigation Bar -->
+        <nav class="glass-nav">
+            <div class="nav-brand">
+                <i class="fas fa-brain"></i>
+                <span>DecisionFlow</span>
+            </div>
+            <div class="nav-user" id="navUser" style="display: none;">
+                <span id="navUserName"></span>
+                <div class="user-avatar" id="profileBtn" style="cursor: pointer;">
+                    <i class="fas fa-user"></i>
+                </div>
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Auth Container (Login/Register) -->
+        <div class="auth-container" id="authContainer">
+            <div class="auth-card glass-card">
+                <div class="auth-header">
+                    <h1>Welcome</h1>
+                </div>
+                
+                <!-- Toggle Buttons -->
+                <div class="auth-toggle">
+                    <button class="toggle-btn active" id="showLoginBtn">Login</button>
+                    <button class="toggle-btn" id="showRegisterBtn">Register</button>
+                </div>
+
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form active">
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" placeholder="Email Address" id="email" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Password" id="password" required>
+                    </div>
+                    <button type="submit" class="auth-btn">
+                        <span>Login</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <!-- Register Form -->
+                <form id="registerForm" class="auth-form">
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" placeholder="Full Name" id="regName" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" placeholder="Email Address" id="regEmail" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Password" id="regPassword" required>
+                    </div>
+                    <button type="submit" class="auth-btn">
+                        <span>Create Account</span>
+                        <i class="fas fa-user-plus"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Main Content Area (Hidden until login) -->
+        <div class="main-content" id="mainContent" style="display: none;">
+            <!-- Welcome Banner -->
+            <div class="welcome-banner glass-card">
+                <div class="welcome-text">
+                    <h1>Welcome, <span id="userName"></span>!</h1>
+                    <p>Select a role to view scenarios</p>
+                </div>
+            </div>
+
+            <!-- Role Selection Section -->
+            <div class="role-selection-section" id="roleSelectionSection">
+                <h2><i class="fas fa-briefcase"></i> Choose Your Role</h2>
+
+                <!-- Management -->
+                <div class="role-category-label">Management</div>
+                <div class="role-grid cols-4" id="roleGrid">
+                    <div class="role-card" onclick="selectRole('Project Manager')">
+                        <i class="fas fa-tasks"></i>
+                        <h3>Project Manager</h3>
+                        <p>Manage projects, resources, and stakeholders</p>
+                    </div>
+                    <div class="role-card" onclick="selectRole('Product Manager')">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Product Manager</h3>
+                        <p>Define product vision and roadmap</p>
+                    </div>
+                    <div class="role-card" onclick="selectRole('HR Manager')">
+                        <i class="fas fa-users"></i>
+                        <h3>HR Manager</h3>
+                        <p>Handle recruitment, conflicts, and culture</p>
+                    </div>
+                    <div class="role-card" onclick="selectRole('Operations Manager')">
+                        <i class="fas fa-cogs"></i>
+                        <h3>Operations Manager</h3>
+                        <p>Optimize processes and supply chain</p>
+                    </div>
+                </div>
+
+                <!-- Engineering -->
+                <div class="role-category-label">Engineering &amp; Technology</div>
+                <div class="role-grid cols-4">
+                    <div class="role-card" onclick="selectRole('Software Engineer')">
+                        <i class="fas fa-code"></i>
+                        <h3>Software Engineer</h3>
+                        <p>Build and maintain software systems</p>
+                    </div>
+                    <div class="role-card" onclick="selectRole('DevOps Engineer')">
+                        <i class="fas fa-cloud"></i>
+                        <h3>DevOps Engineer</h3>
+                        <p>Manage deployment and infrastructure</p>
+                    </div>
+                    <div class="role-card" onclick="selectRole('QA Engineer')">
+                        <i class="fas fa-bug"></i>
+                        <h3>QA Engineer</h3>
+                        <p>Ensure quality through testing</p>
+                    </div>
+                    <div class="role-card" onclick="selectRole('Cybersecurity Analyst')">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Cybersecurity Analyst</h3>
+                        <p>Protect systems from threats</p>
+                    </div>
+                </div>
+
+                <!-- Healthcare -->
+                <div class="role-category-label">Healthcare</div>
+                <div class="role-grid cols-3">
+                    <div class="role-card" onclick="selectRole('Hospital Administrator')">
+                        <i class="fas fa-hospital"></i>
+                        <h3>Hospital Administrator</h3>
+                        <p>Manage hospital operations</p>
+                    </div>
+                    <div class="role-card" onclick="selectRole('Medical Officer')">
+                        <i class="fas fa-user-md"></i>
+                        <h3>Medical Officer</h3>
+                        <p>Make critical medical decisions</p>
+                    </div>
+                    <div class="role-card" onclick="selectRole('Nursing Supervisor')">
+                        <i class="fas fa-user-nurse"></i>
+                        <h3>Nursing Supervisor</h3>
+                        <p>Coordinate nursing staff and care</p>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="role-category-label">Education</div>
+                <div class="role-grid cols-2">
+                    <div class="role-card" onclick="selectRole('Academic Coordinator')">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h3>Academic Coordinator</h3>
+                        <p>Manage curriculum and academics</p>
+                    </div>
+                    <div class="role-card" onclick="selectRole('School Administrator')">
+                        <i class="fas fa-school"></i>
+                        <h3>School Administrator</h3>
+                        <p>Oversee school operations</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scenarios Section -->
+            <div class="scenarios-section" id="scenariosSection" style="display: none;">
+                <div class="section-header">
+                    <div>
+                        <h2><i class="fas fa-compass"></i> Scenarios for <span id="selectedRoleDisplay"></span></h2>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="action-btn" onclick="showAnalytics()">
+                            <i class="fas fa-chart-line"></i> Analytics
+                        </button>
+                        <button class="change-role-btn" onclick="showRoleSelection()">
+                            <i class="fas fa-exchange-alt"></i> Change Role
+                        </button>
+                    </div>
+                </div>
+
+                <div class="scenarios-grid" id="scenariosList">
+                    <!-- Scenarios will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Analytics Section -->
+            <div class="analytics-section" id="analyticsSection" style="display: none;">
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-line"></i> Your Analytics</h2>
+                    <button class="back-btn" onclick="backToScenarios()">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                </div>
+                <div class="analytics-grid">
+                    <div class="analytics-card glass-card">
+                        <h3>Performance Overview</h3>
+                        <div class="analytics-stats">
+                            <div class="stat">
+                                <span class="stat-label">Scenarios Completed</span>
+                                <span class="stat-value" id="completedCount">0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Decisions Made</span>
+                                <span class="stat-value" id="decisionCount">0</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Average Impact</span>
+                                <span class="stat-value" id="avgImpactScore">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="analytics-card glass-card">
+                        <h3>Recent Activity</h3>
+                        <div id="recentActivityList" class="activity-list">
+                            <p class="no-data">No activity yet</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Section -->
+            <div class="profile-section" id="profileSection" style="display: none;">
+                <div class="section-header">
+                    <h2><i class="fas fa-user-circle"></i> My Profile</h2>
+                    <button class="back-btn" onclick="backToScenarios()">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                </div>
+                <div class="profile-card glass-card">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="profile-info">
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-user"></i> Name:</span>
+                            <span class="info-value" id="profileName"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-envelope"></i> Email:</span>
+                            <span class="info-value" id="profileEmail"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-calendar"></i> Member Since:</span>
+                            <span class="info-value" id="profileMemberSince">Just now</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Decision Modal -->
+    <div class="modal" id="decisionModal">
+        <div class="modal-content glass-card">
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2>
+                <button class="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <p class="modal-description" id="modalDescription"></p>
+            
+            <!-- Radar Chart -->
+            <div class="metrics-chart">
+                <canvas id="metricsRadar"></canvas>
+            </div>
+
+            <!-- Metrics Cards -->
+            <div class="metrics-grid">
+                <div class="metric-item" data-metric="cost">
+                    <div class="metric-icon">💰</div>
+                    <div class="metric-content">
+                        <span class="metric-label">Budget</span>
+                        <span class="metric-value" id="currentCost">100</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 50%" id="costProgress"></div>
+                    </div>
+                </div>
+                <div class="metric-item" data-metric="time">
+                    <div class="metric-icon">⏰</div>
+                    <div class="metric-content">
+                        <span class="metric-label">Timeline</span>
+                        <span class="metric-value" id="currentTime">100</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 50%" id="timeProgress"></div>
+                    </div>
+                </div>
+                <div class="metric-item" data-metric="quality">
+                    <div class="metric-icon">⭐</div>
+                    <div class="metric-content">
+                        <span class="metric-label">Quality</span>
+                        <span class="metric-value" id="currentQuality">100</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 50%" id="qualityProgress"></div>
+                    </div>
+                </div>
+                <div class="metric-item" data-metric="morale">
+                    <div class="metric-icon">😊</div>
+                    <div class="metric-content">
+                        <span class="metric-label">Morale</span>
+                        <span class="metric-value" id="currentMorale">100</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 50%" id="moraleProgress"></div>
+                    </div>
+                </div>
+                <div class="metric-item" data-metric="satisfaction">
+                    <div class="metric-icon">👍</div>
+                    <div class="metric-content">
+                        <span class="metric-label">Satisfaction</span>
+                        <span class="metric-value" id="currentSatisfaction">100</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 50%" id="satisfactionProgress"></div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="decisions-title"><i class="fas fa-gavel"></i> Choose Your Decision</h3>
+            <div class="decisions-container" id="decisionsList">
+                <!-- Decisions will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Result Modal -->
+    <div class="modal" id="resultModal">
+        <div class="modal-content glass-card result-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-check-circle"></i> Decision Impact</h2>
+                <button class="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="resultContent" class="result-details"></div>
+            <div class="result-actions">
+                <button class="secondary-btn" id="closeResult">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final Score Modal -->
+    <div class="modal" id="scoreModal">
+        <div class="modal-content glass-card">
+            <div class="modal-header">
+                <h2><i class="fas fa-trophy"></i> Scenario Complete</h2>
+            </div>
+            <div id="scoreContent"></div>
+            <div class="result-actions" style="gap:12px;">
+                <button class="secondary-btn" id="playAgainBtn">
+                    <i class="fas fa-redo"></i> Try Again
+                </button>
+                <button class="auth-btn" style="padding:0.75rem 2rem;margin-top:0;" id="backToScenariosBtn">
+                    <i class="fas fa-list"></i> All Scenarios
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
