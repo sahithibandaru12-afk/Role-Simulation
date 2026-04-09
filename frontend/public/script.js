@@ -143,11 +143,24 @@ async function handleLogin(e) {
         const data = await response.json();
 
         if (data.success) {
-            // --- THIS IS THE MISSING PART ---
-            currentUser = data.user;
-            if (userNameSpan) userNameSpan.textContent = currentUser.name;
-            if (navUserName) navUserName.textContent = currentUser.name.split(' ')[0];
-            if (profileName) profileName.textContent = currentUser.name;
+            // Handle case where user object might be missing
+            if (!data.user) {
+                // Create a user object from email if backend doesn't return one
+                currentUser = {
+                    name: email.split('@')[0],
+                    email: email,
+                    role: "Manager"
+                };
+            } else {
+                currentUser = data.user;
+            }
+            
+            // Ensure name exists
+            const userName = currentUser.name || currentUser.email.split('@')[0];
+            
+            if (userNameSpan) userNameSpan.textContent = userName;
+            if (navUserName) navUserName.textContent = userName.split(' ')[0];
+            if (profileName) profileName.textContent = userName;
             if (profileEmail) profileEmail.textContent = currentUser.email;
 
             authContainer.style.display = 'none';
@@ -156,8 +169,7 @@ async function handleLogin(e) {
 
             showSection('roleSelection');
             loginForm.reset();
-            showNotification(`Welcome ${currentUser.name}! Select a role to begin.`, 'success');
-            // ---------------------------------
+            showNotification(`Welcome ${userName}! Select a role to begin.`, 'success');
         } else {
             showNotification(data.error || 'Invalid credentials', 'error');
         }
@@ -166,6 +178,8 @@ async function handleLogin(e) {
         showNotification('Server connection error', 'error');
     }
 }
+
+       
 
 
 async function handleRegister(e) {
