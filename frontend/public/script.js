@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'https://role-simulation-985b.vercel.app/api';
 let currentUser = null;
 let currentRole = null;
 let currentScenario = null;
