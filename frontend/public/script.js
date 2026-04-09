@@ -143,8 +143,21 @@ async function handleLogin(e) {
         const data = await response.json();
 
         if (data.success) {
-            // Login success logic
-            console.log('Login successful', data);
+            // --- THIS IS THE MISSING PART ---
+            currentUser = data.user;
+            if (userNameSpan) userNameSpan.textContent = currentUser.name;
+            if (navUserName) navUserName.textContent = currentUser.name.split(' ')[0];
+            if (profileName) profileName.textContent = currentUser.name;
+            if (profileEmail) profileEmail.textContent = currentUser.email;
+
+            authContainer.style.display = 'none';
+            mainContent.style.display = 'block';
+            navUser.style.display = 'flex';
+
+            showSection('roleSelection');
+            loginForm.reset();
+            showNotification(`Welcome ${currentUser.name}! Select a role to begin.`, 'success');
+            // ---------------------------------
         } else {
             showNotification(data.error || 'Invalid credentials', 'error');
         }
